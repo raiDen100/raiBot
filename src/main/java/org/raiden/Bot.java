@@ -16,26 +16,23 @@ public class Bot {
 
 
     public static void main(String[] args) throws LoginException, InterruptedException, IOException {
+        System.setProperty("active.profile", "development");
         if (args.length > 0){
-            if (args[0].equals("production"))
+            if (args[0].equals("production")) {
                 System.setProperty("active.profile", "production");
+            }
         }
-        else
-            System.setProperty("active.profile", "development");
+
+        LOGGER.info("Running on " + System.getProperty("active.profile") + " config");
 
         PropertiesReader propertiesReader = new PropertiesReader();
-
-        System.out.println("Profile ID:  " + System.getProperty("active.profile"));
-
         String token = propertiesReader.getPropertyValue("discord.token");
         //String activityStatus = propertiesReader.getPropertyValue("bot.activity");
 
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
         builder.setActivity(Activity.listening("🎵"));
-
         builder.addEventListeners(new Listener());
         builder.build();
-
     }
 
 }
