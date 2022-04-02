@@ -1,9 +1,11 @@
 package org.raiden.commands.music.filters;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
-import org.raiden.commands.music.filters.utils.CommandContext;
-import org.raiden.commands.music.filters.utils.ICommand;
+import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.EmbedCreator;
+import org.raiden.commands.utils.ICommand;
 import org.raiden.lavaplayer.GuildMusicManager;
 import org.raiden.lavaplayer.PlayerManager;
 
@@ -26,28 +28,26 @@ public class BassboostCommand implements ICommand {
         if(args.contains("reset")){
             guildMusicManager.resetBassboost();
 
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setDescription("Bassboost " + " removed!")
-                    .setColor(new Color(0, 255, 0));
-
-            ctx.sendEventReply(eb.build());
+            String description = "Bassboost removed!";
+            ctx.sendEventReply(EmbedCreator.actionSuccessfulEmbed(description));
             return;
         }
-        float parsedArg = Float.parseFloat(args);
+        float bassboostValue = Float.parseFloat(args);
 
+        if(bassboostValue <= 0){
+            guildMusicManager.resetBassboost();
 
-        if(parsedArg < 0){
-            parsedArg = 0;
+            String description = "Bassboost removed!";
+            ctx.sendEventReply(EmbedCreator.actionSuccessfulEmbed(description));
+            return;
         }
 
-        float bassboostValue = parsedArg / 100;
         guildMusicManager.bassBoost(bassboostValue);
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setDescription("Bassboost " + Float.toString(parsedArg) + "/100 will be applied")
-        .setColor(new Color(0, 255, 0));
+        String description = "Bassboost " + Math.round(bassboostValue) + " will be applied";
+        MessageEmbed messageEmbed = EmbedCreator.actionSuccessfulEmbed(description);
 
-        ctx.sendEventReply(eb.build());
+        ctx.sendEventReply(messageEmbed);
     }
 
     @Override

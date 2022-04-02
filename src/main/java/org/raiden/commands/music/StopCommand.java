@@ -4,8 +4,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
-import org.raiden.commands.music.filters.utils.CommandContext;
-import org.raiden.commands.music.filters.utils.ICommand;
+import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.ICommand;
 import org.raiden.lavaplayer.GuildMusicManager;
 import org.raiden.lavaplayer.PlayerManager;
 
@@ -32,11 +32,7 @@ public class StopCommand implements ICommand {
         musicManager.scheduler.player.stopTrack();
         musicManager.scheduler.queue.clear();
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setDescription("Cleared queue and stopped playing")
-                .setColor(new Color(0, 255, 0));
-
-        ctx.sendEventReply(eb.build());
+        ctx.addEventReaction("🛑");
     }
 
     @Override

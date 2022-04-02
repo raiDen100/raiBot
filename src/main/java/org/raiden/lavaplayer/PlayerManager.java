@@ -4,21 +4,16 @@ import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeHttpContextFilter;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.tools.http.HttpContextFilter;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
-import org.apache.hc.core5.reactor.Command;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.protocol.HttpClientContext;
-import org.raiden.commands.music.filters.utils.CommandContext;
+import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.EmbedCreator;
+import org.raiden.utils.PropertiesReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,13 +39,13 @@ public class PlayerManager extends DefaultAudioPlayerManager{
         this.musicManagers = new HashMap<>();
         this.audioPlayerManager = new DefaultAudioPlayerManager();
 
-
-
         AudioSourceManagers.registerRemoteSources(this.audioPlayerManager);
         AudioSourceManagers.registerLocalSource(this.audioPlayerManager);
 
-        YoutubeHttpContextFilter.setPAPISID("N_p4QrcnbB1MNRTO/AUYQ0Re_8oeuu_IB9");
-        YoutubeHttpContextFilter.setPSID("IQgnE5HCW6EKTjsKOq7lN1TmFXTYD__ZHHG_9IIS5h-6jheCPfgtD45PkReMlg1QDnZmVw.");
+        PropertiesReader propertiesReader = new PropertiesReader();
+
+        YoutubeHttpContextFilter.setPAPISID(propertiesReader.getPropertyValue("youtube.papisid"));
+        YoutubeHttpContextFilter.setPSID(propertiesReader.getPropertyValue("youtube.psid"));
         //audioPlayerManager.source(YoutubeAudioSourceManager.class).getMainHttpConfiguration().setHttpContextFilter(httpContextFilter);
     }
 
@@ -71,19 +66,14 @@ public class PlayerManager extends DefaultAudioPlayerManager{
            @Override
            public void trackLoaded(AudioTrack audioTrack) {
 
-               EmbedBuilder eb = new EmbedBuilder();
-
                audioTrack.setUserData(author);
 
                if(musicManager.audioPlayer.getPlayingTrack() != null || ctx.getSlashEvent() != null){
-                   eb.setColor(Color.magenta)
-                           .setTitle("Queued!")
-                           .setDescription("[" + audioTrack.getInfo().title + "](" + audioTrack.getInfo().uri + ") [<@" + author.getId() + ">]");
-                   ctx.sendEventReply(eb.build());
+                   String description = "[" + audioTrack.getInfo().title + "](" + audioTrack.getInfo().uri + ") [<@" + author.getId() + ">]";
+                   ctx.sendEventReply(EmbedCreator.queuedTrackEmbed(description));
                }
 
                musicManager.scheduler.queue(audioTrack);
-
            }
 
            @Override
@@ -98,24 +88,20 @@ public class PlayerManager extends DefaultAudioPlayerManager{
 
                    if(musicManager.audioPlayer.getPlayingTrack() != null  || ctx.getSlashEvent() != null){
 
-                       eb.setColor(Color.magenta)
-                               .setTitle("Queued!")
-                               .setDescription("[" + audioTrack.getInfo().title + "](" + audioTrack.getInfo().uri + ") [<@" + author.getId() + ">]");
-                       ctx.sendEventReply(eb.build());
+
+                       String description = "[" + audioTrack.getInfo().title + "](" + audioTrack.getInfo().uri + ") [<@" + author.getId() + ">]";
+                       ctx.sendEventReply(EmbedCreator.queuedTrackEmbed(description));
                    }
 
                    audioTrack.setUserData(author);
-
                    musicManager.scheduler.queue(audioTrack);
 
                    return;
                }
 
-               EmbedBuilder eb = new EmbedBuilder();
-               eb.setColor(Color.magenta)
-                       .setDescription("Queued **" + Integer.toString(tracks.size()) + "** tracks");
+               String description = "Queued **" + Integer.toString(tracks.size()) + "** tracks";
 
-               ctx.sendEventReply(eb.build());
+               ctx.sendEventReply(EmbedCreator.queuedPlaylistEmbed(description));
 
                for(final AudioTrack track : tracks){
                    track.setUserData(author);

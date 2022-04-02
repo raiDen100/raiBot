@@ -1,4 +1,4 @@
-package org.raiden.commands.music.filters.utils;
+package org.raiden.commands.utils;
 
 import net.dv8tion.jda.api.interactions.components.Button;
 import org.raiden.lavaplayer.GuildMusicManager;

@@ -1,4 +1,4 @@
-package org.raiden.commands.music.filters.utils;
+package org.raiden.commands.utils;
 
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -28,7 +28,7 @@ public class CommandManager {
         addCommand(new VolumeCommand());
         addCommand(new BassboostCommand());
         addCommand(new ResetCommand());
-        addCommand(new RepeatCommand());
+        addCommand(new LoopCommand());
         addCommand(new LoopQCommand());
         addCommand(new ShuffleCommand());
         addCommand(new QueueCommand());
@@ -41,7 +41,6 @@ public class CommandManager {
         addCommand(new SetSpeedCommand());
         addCommand(new NightcoreCommand());
         addCommand(new VaporwaveCommand());
-        addCommand(new DistortionCommand());
         addCommand(new StatusCommand());
     }
     private void addCommand(ICommand cmd){

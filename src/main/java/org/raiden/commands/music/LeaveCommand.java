@@ -1,8 +1,8 @@
 package org.raiden.commands.music;
 
 import net.dv8tion.jda.api.managers.AudioManager;
-import org.raiden.commands.music.filters.utils.CommandContext;
-import org.raiden.commands.music.filters.utils.ICommand;
+import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.ICommand;
 import org.raiden.lavaplayer.GuildMusicManager;
 import org.raiden.lavaplayer.PlayerManager;
 

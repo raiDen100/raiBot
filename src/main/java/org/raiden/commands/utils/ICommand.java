@@ -1,4 +1,4 @@
-package org.raiden.commands.music.filters.utils;
+package org.raiden.commands.utils;
 
 import java.util.List;
 

@@ -5,9 +5,10 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.interactions.components.Button;
-import org.raiden.commands.music.filters.utils.ButtonCreator;
-import org.raiden.commands.music.filters.utils.CommandContext;
-import org.raiden.commands.music.filters.utils.ICommand;
+import org.raiden.commands.utils.ButtonCreator;
+import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.EmbedCreator;
+import org.raiden.commands.utils.ICommand;
 import org.raiden.lavaplayer.GuildMusicManager;
 import org.raiden.lavaplayer.PlayerManager;
 
@@ -41,10 +42,9 @@ public class SkipCommand implements ICommand {
         int counter = musicManager.scheduler.counter;
 
         if(counter >= 15){
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setDescription("Played this song for " + counter + " times");
+            String description = "Played this song for " + counter + " times";
 
-            ctx.sendEventReply(eb.build());
+            ctx.sendEventReply(EmbedCreator.actionSuccessfulEmbed(description));
         }
 
 

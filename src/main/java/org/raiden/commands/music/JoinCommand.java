@@ -6,8 +6,9 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
-import org.raiden.commands.music.filters.utils.CommandContext;
-import org.raiden.commands.music.filters.utils.ICommand;
+import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.EmbedCreator;
+import org.raiden.commands.utils.ICommand;
 
 import java.awt.*;
 import java.util.List;
@@ -26,7 +27,8 @@ public class JoinCommand implements ICommand {
         final GuildVoiceState memberVoiceState = member.getVoiceState();
 
         if(!memberVoiceState.inVoiceChannel()){
-            channel.sendMessage("You must be in a voice channel!").queue();
+            String description = "You must be in a voice channel!";
+            ctx.sendEventReply(description);
             return;
         }
 
@@ -39,10 +41,9 @@ public class JoinCommand implements ICommand {
 
         audioManager.openAudioConnection(memberVoiceChannel);
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setDescription("Joined the voice channel!")
-                .setColor(new Color(0, 255, 0));
-        ctx.sendEventReply(eb.build());
+        String description = "Joined the voice channel!";
+
+        ctx.sendEventReply(EmbedCreator.actionSuccessfulEmbed(description));
     }
 
     @Override

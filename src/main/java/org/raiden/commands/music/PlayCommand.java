@@ -1,13 +1,11 @@
 package org.raiden.commands.music;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.GuildVoiceState;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.managers.AudioManager;
-import org.raiden.commands.music.filters.utils.CommandContext;
-import org.raiden.commands.music.filters.utils.ICommand;
+import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.EmbedCreator;
+import org.raiden.commands.utils.ICommand;
 import org.raiden.lavaplayer.GuildMusicManager;
 import org.raiden.lavaplayer.PlayerManager;
 import org.raiden.utils.SpotifyService;
@@ -64,11 +62,10 @@ public class PlayCommand implements ICommand {
             else if (type.equals("playlist")){
                 List<Track> tracks = spotifyService.getPlaylistTracks(id);
 
-                EmbedBuilder eb = new EmbedBuilder();
-                eb.setColor(Color.magenta)
-                        .setDescription("Queued **" + Integer.toString(tracks.size()) + "** tracks");
+                String description = "Queued **" + Integer.toString(tracks.size()) + "** tracks";
+                MessageEmbed messageEmbed = EmbedCreator.actionSuccessfulEmbed(description, new Color(64, 0, 148));
 
-                ctx.sendEventReply(eb.build());
+                ctx.sendEventReply(messageEmbed);
 
                 final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
                 musicManager.scheduler.setTextChannel(ctx.getChannel());

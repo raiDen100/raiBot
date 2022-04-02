@@ -7,10 +7,12 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.components.Button;
-import org.raiden.commands.music.filters.utils.ButtonCreator;
+import org.raiden.commands.utils.ButtonCreator;
+import org.raiden.commands.utils.EmbedCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,16 +71,12 @@ public class TrackScheduler extends AudioEventAdapter {
 
         User author = (User) audioTrack.getUserData();
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(Color.magenta)
-                .setTitle("Now playing!")
-                .setDescription("[" + audioTrack.getInfo().title + "](" + audioTrack.getInfo().uri + ") [<@" + author.getId() + ">]");
-
+        String description = "[" + audioTrack.getInfo().title + "](" + audioTrack.getInfo().uri + ") [<@" + author.getId() + ">]";
+        MessageEmbed messageEmbed = EmbedCreator.nowPlayingEmbed(description);
 
         List<Button> buttonList = ButtonCreator.createNowPlayingButtons(this);
 
-
-       textChannel.sendMessageEmbeds(eb.build()).setActionRow(buttonList).queue(message -> this.lastMessage = message);
+       textChannel.sendMessageEmbeds(messageEmbed).setActionRow(buttonList).queue(message -> this.lastMessage = message);
     }
 
     @Override
@@ -122,12 +120,11 @@ public class TrackScheduler extends AudioEventAdapter {
         retries -= 1;
         if(retries == 0){
             retries = 3;
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setColor(Color.red)
-                    .setTitle("ERROR :(")
-                    .setDescription("Track " + track.getInfo().title + " failed after 3 attempts");
 
-            textChannel.sendMessageEmbeds(eb.build()).queue();
+            String description = "Track " + track.getInfo().title + " failed after 3 attempts";
+            MessageEmbed messageEmbed = EmbedCreator.actionFailedEmbed(description);
+
+            textChannel.sendMessageEmbeds(messageEmbed).queue();
             this.repeating = false;
         }
 

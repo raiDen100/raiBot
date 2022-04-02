@@ -1,8 +1,8 @@
 package org.raiden.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import org.raiden.commands.music.filters.utils.CommandContext;
-import org.raiden.commands.music.filters.utils.ICommand;
+import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.ICommand;
 
 import java.util.List;
 

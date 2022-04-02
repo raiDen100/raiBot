@@ -2,8 +2,9 @@ package org.raiden.commands.music;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
-import org.raiden.commands.music.filters.utils.CommandContext;
-import org.raiden.commands.music.filters.utils.ICommand;
+import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.EmbedCreator;
+import org.raiden.commands.utils.ICommand;
 import org.raiden.lavaplayer.PlayerManager;
 
 import java.awt.*;
@@ -16,11 +17,7 @@ public class ResetCommand implements ICommand {
 
         PlayerManager.getInstance().getMusicManager(ctx.getGuild()).resetFilters();
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setDescription("Filters will be reset")
-                .setColor(new Color(0, 255, 0));
-
-        ctx.sendEventReply(eb.build());
+        ctx.sendEventReply(EmbedCreator.actionSuccessfulEmbed("Filters will be reset"));
     }
 
     @Override

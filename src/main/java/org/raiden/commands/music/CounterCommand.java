@@ -5,8 +5,9 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
-import org.raiden.commands.music.filters.utils.CommandContext;
-import org.raiden.commands.music.filters.utils.ICommand;
+import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.EmbedCreator;
+import org.raiden.commands.utils.ICommand;
 import org.raiden.lavaplayer.GuildMusicManager;
 import org.raiden.lavaplayer.PlayerManager;
 
@@ -36,11 +37,9 @@ public class CounterCommand implements ICommand {
 
         int counter = musicManager.scheduler.counter;
 
+        String description = "Playing this song for the " + counter + getNumberSuffix(counter) + " time";
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setDescription("Playing this song for the " + counter + getNumberSuffix(counter) + " time");
-
-        ctx.sendEventReply(eb.build());
+        ctx.sendEventReply(EmbedCreator.actionSuccessfulEmbed(description));
     }
 
     String getNumberSuffix(final int n) {

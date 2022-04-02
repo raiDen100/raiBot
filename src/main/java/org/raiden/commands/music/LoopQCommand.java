@@ -4,9 +4,11 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
-import org.raiden.commands.music.filters.utils.CommandContext;
-import org.raiden.commands.music.filters.utils.ICommand;
+import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.EmbedCreator;
+import org.raiden.commands.utils.ICommand;
 import org.raiden.lavaplayer.GuildMusicManager;
 import org.raiden.lavaplayer.PlayerManager;
 
@@ -39,16 +41,13 @@ public class LoopQCommand implements ICommand {
         musicManager.scheduler.repeating = false;
         musicManager.scheduler.repeatingQueue = newRepeating;
 
-        EmbedBuilder eb = new EmbedBuilder();
-        if(newRepeating){
-            eb.setTitle("Looping queue!", null);
-        }
-        else {
-            eb.setTitle("Loop disabled!", null);
-        }
+        MessageEmbed messageEmbed;
+        if(newRepeating)
+            messageEmbed = EmbedCreator.actionSuccessfulEmbed("Looping queue!");
+        else
+            messageEmbed = EmbedCreator.actionSuccessfulEmbed("Loop disabled!");
 
-
-        ctx.sendEventReply(eb.build());
+        ctx.sendEventReply(messageEmbed);
     }
 
     @Override
