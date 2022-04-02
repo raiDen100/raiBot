@@ -1,8 +1,10 @@
 package org.raiden.commands.music.filters;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.EmbedCreator;
 import org.raiden.commands.utils.ICommand;
 import org.raiden.lavaplayer.GuildMusicManager;
 import org.raiden.lavaplayer.PlayerManager;
@@ -16,7 +18,8 @@ public class NightcoreCommand implements ICommand {
         final TextChannel channel = ctx.getChannel();
 
         if(ctx.getArgs().isEmpty()){
-            channel.sendMessage("You need to provide a number");
+            MessageEmbed messageEmbed = EmbedCreator.actionFailedEmbed("You need to provide a number");
+            ctx.sendEventReply(messageEmbed);
             return;
         }
 
@@ -27,11 +30,9 @@ public class NightcoreCommand implements ICommand {
         if(args.contains("reset")){
             guildMusicManager.resetNightcore();
 
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setDescription("Nightcore " + " removed!")
-                    .setColor(new Color(0, 255, 0));
+            MessageEmbed messageEmbed = EmbedCreator.actionSuccessfulEmbed("Nightcore removed!");
 
-            ctx.sendEventReply(eb.build());
+            ctx.sendEventReply(messageEmbed);
             return;
         }
 
@@ -47,11 +48,9 @@ public class NightcoreCommand implements ICommand {
         float bassboostValue = parsedArg / 100;
         guildMusicManager.setNightcore(bassboostValue);
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setDescription("Nightcore " + " set!")
-                .setColor(new Color(0, 255, 0));
+        MessageEmbed messageEmbed = EmbedCreator.actionSuccessfulEmbed("Nightcore set!");
 
-        ctx.sendEventReply(eb.build());
+        ctx.sendEventReply(messageEmbed);
     }
 
     @Override

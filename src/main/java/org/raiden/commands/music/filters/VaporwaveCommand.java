@@ -1,8 +1,10 @@
 package org.raiden.commands.music.filters;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.EmbedCreator;
 import org.raiden.commands.utils.ICommand;
 import org.raiden.lavaplayer.GuildMusicManager;
 import org.raiden.lavaplayer.PlayerManager;
@@ -16,7 +18,8 @@ public class VaporwaveCommand implements ICommand {
         final TextChannel channel = ctx.getChannel();
 
         if(ctx.getArgs().isEmpty()){
-            channel.sendMessage("You need to provide a number");
+            MessageEmbed messageEmbed = EmbedCreator.actionFailedEmbed("You need to provide a number");
+            ctx.sendEventReply(messageEmbed);
             return;
         }
 
@@ -27,11 +30,8 @@ public class VaporwaveCommand implements ICommand {
         if(args.contains("reset")){
             guildMusicManager.resetVaporwave();
 
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setDescription("Vaporwave " + " removed!")
-                    .setColor(new Color(0, 255, 0));
-
-            ctx.sendEventReply(eb.build());
+            MessageEmbed messageEmbed = EmbedCreator.actionSuccessfulEmbed("Vaporwave removed!");
+            ctx.sendEventReply(messageEmbed);
             return;
         }
 
@@ -47,11 +47,8 @@ public class VaporwaveCommand implements ICommand {
         float bassboostValue = parsedArg / 100;
         guildMusicManager.setVaporwave(bassboostValue);
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setDescription("Vaporwave " + " set!")
-                .setColor(new Color(0, 255, 0));
-
-        ctx.sendEventReply(eb.build());
+        MessageEmbed messageEmbed = EmbedCreator.actionSuccessfulEmbed("Vaporwave set!");
+        ctx.sendEventReply(messageEmbed);
     }
 
     @Override

@@ -1,8 +1,10 @@
 package org.raiden.commands.music.filters;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.raiden.commands.utils.CommandContext;
+import org.raiden.commands.utils.EmbedCreator;
 import org.raiden.commands.utils.ICommand;
 import org.raiden.lavaplayer.GuildMusicManager;
 import org.raiden.lavaplayer.PlayerManager;
@@ -16,7 +18,8 @@ public class SetSpeedCommand implements ICommand {
         final TextChannel channel = ctx.getChannel();
 
         if(ctx.getArgs().isEmpty()){
-            channel.sendMessage("You need to provide a number");
+            MessageEmbed messageEmbed = EmbedCreator.actionFailedEmbed("You need to provide a number");
+            ctx.sendEventReply(messageEmbed);
             return;
         }
 
@@ -26,11 +29,8 @@ public class SetSpeedCommand implements ICommand {
         if(args.contains("reset")){
             guildMusicManager.resetSpeed();
 
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setDescription("Speed modifier " + " removed!")
-                    .setColor(new Color(0, 255, 0));
-
-            ctx.sendEventReply(eb.build());
+            MessageEmbed messageEmbed = EmbedCreator.actionSuccessfulEmbed("Speed modifier removed!");
+            ctx.sendEventReply(messageEmbed);
             return;
         }
         float parsedArg = Float.parseFloat(args);
@@ -42,11 +42,10 @@ public class SetSpeedCommand implements ICommand {
         float speed = parsedArg / 100;
         guildMusicManager.setSpeed(speed);
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setDescription("Speed " + Float.toString(parsedArg) + "% will be applied")
-                .setColor(new Color(0, 255, 0));
+        String description = "Speed " + Math.round(parsedArg) + "% will be applied";
+        MessageEmbed messageEmbed = EmbedCreator.actionSuccessfulEmbed(description);
 
-        ctx.sendEventReply(eb.build());
+        ctx.sendEventReply(messageEmbed);
     }
 
     @Override
