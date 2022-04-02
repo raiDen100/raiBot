@@ -30,7 +30,7 @@ public class Bot {
         //String activityStatus = propertiesReader.getPropertyValue("bot.activity");
 
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
-        builder.setActivity(Activity.listening("🎵"));
+        builder.setActivity(Activity.listening("music"));
         builder.addEventListeners(new Listener());
         builder.build();
     }
