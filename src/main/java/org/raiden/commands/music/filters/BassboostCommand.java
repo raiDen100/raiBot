@@ -32,7 +32,7 @@ public class BassboostCommand implements ICommand {
             ctx.sendEventReply(EmbedCreator.actionSuccessfulEmbed(description));
             return;
         }
-        float bassboostValue = Float.parseFloat(args);
+        float bassboostValue = Float.parseFloat(args) / 100;
 
         if(bassboostValue <= 0){
             guildMusicManager.resetBassboost();

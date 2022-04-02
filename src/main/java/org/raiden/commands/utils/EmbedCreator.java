@@ -24,9 +24,9 @@ public class EmbedCreator {
 
     public static MessageEmbed nowPlayingEmbed(String description){
         return new EmbedBuilder()
-                .setTitle("Now playsing!")
+                .setTitle("Now playing!")
                 .setDescription(description)
-                .setColor(new Color(194, 116, 0))
+                .setColor(Color.magenta)
                 .build();
     }
 
@@ -34,14 +34,14 @@ public class EmbedCreator {
         return new EmbedBuilder()
                 .setTitle("Queued!")
                 .setDescription(description)
-                .setColor(new Color(64, 0, 148))
+                .setColor(new Color(57, 28, 107))
                 .build();
     }
 
     public static MessageEmbed queuedPlaylistEmbed(String description){
         return new EmbedBuilder()
                 .setDescription(description)
-                .setColor(new Color(64, 0, 148))
+                .setColor(new Color(57, 28, 107))
                 .build();
     }
 
