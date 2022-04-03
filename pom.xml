@@ -6,7 +6,7 @@
 
     <groupId>org.raiden</groupId>
     <artifactId>DiscordBOT</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.13-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
