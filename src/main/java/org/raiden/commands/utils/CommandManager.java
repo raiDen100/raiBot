@@ -113,8 +113,7 @@ public class CommandManager {
         PropertiesReader propertiesReader = new PropertiesReader();
         String prefix = propertiesReader.getPropertyValue("bot.prefix");
         String[] split = event.getButton().getId()
-                .replaceFirst("(?i)" + Pattern.quote(prefix), "")
-                .split("\\s+");
+                .split(" ");
 
         String invoke = split[0].toLowerCase();
         ICommand cmd = this.getCommand(invoke);
@@ -123,7 +122,6 @@ public class CommandManager {
             List<String> args = Arrays.asList(split).subList(1, split.length);
 
             CommandContext ctx = new CommandContext(event, args, this.commands);
-
             cmd.handle(ctx);
         }
     }
