@@ -89,10 +89,10 @@ public class QueueCommand implements ICommand {
 
         List<Button> buttonList = new ArrayList<>();
 
-        buttonList.add(Button.secondary("r-queue first", "First"));
-        buttonList.add(Button.secondary("r-queue back", "Back"));
-        buttonList.add(Button.secondary("r-queue next", "Next"));
-        buttonList.add(Button.secondary("r-queue last", "Last"));
+        buttonList.add(Button.secondary("queue first", "First"));
+        buttonList.add(Button.secondary("queue back", "Back"));
+        buttonList.add(Button.secondary("queue next", "Next"));
+        buttonList.add(Button.secondary("queue last", "Last"));
         if(ctx.getButtonEvent() != null && !ctx.getArgs().isEmpty()){
 
             ActionRow actionRow = ActionRow.of(buttonList);
@@ -113,11 +113,11 @@ public class QueueCommand implements ICommand {
         if(ctx.getButtonEvent() != null && ctx.getArgs().isEmpty()){
             List<net.dv8tion.jda.api.interactions.components.Button> buttonList2 = new ArrayList<>();
 
-            buttonList2.add(net.dv8tion.jda.api.interactions.components.Button.secondary("r-queue", "Queue"));
-            buttonList2.add(net.dv8tion.jda.api.interactions.components.Button.secondary("r-skip", "Skip"));
-            buttonList2.add(net.dv8tion.jda.api.interactions.components.Button.secondary("r-resume", "Play"));
-            buttonList2.add(net.dv8tion.jda.api.interactions.components.Button.secondary("r-pause", "Pause"));
-            buttonList2.add(net.dv8tion.jda.api.interactions.components.Button.secondary("r-loop", "Loop"));
+            buttonList2.add(net.dv8tion.jda.api.interactions.components.Button.secondary("queue", "Queue"));
+            buttonList2.add(net.dv8tion.jda.api.interactions.components.Button.secondary("skip", "Skip"));
+            buttonList2.add(net.dv8tion.jda.api.interactions.components.Button.secondary("resume", "Play"));
+            buttonList2.add(net.dv8tion.jda.api.interactions.components.Button.secondary("pause", "Pause"));
+            buttonList2.add(net.dv8tion.jda.api.interactions.components.Button.secondary("loop", "Loop"));
 
             ctx.getButtonEvent().editMessage(ctx.getButtonEvent().getMessage()).setActionRow(buttonList2).queue();
         }
