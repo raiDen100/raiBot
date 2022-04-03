@@ -62,9 +62,7 @@ public class PlayCommand implements ICommand {
             else if (type.equals("playlist")){
                 List<Track> tracks = spotifyService.getPlaylistTracks(id);
 
-                String description = "Queued **" + Integer.toString(tracks.size()) + "** tracks";
-                MessageEmbed messageEmbed = EmbedCreator.actionSuccessfulEmbed(description, new Color(64, 0, 148));
-
+                MessageEmbed messageEmbed = EmbedCreator.queuedPlaylistEmbed(tracks.size());
                 ctx.sendEventReply(messageEmbed);
 
                 final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());

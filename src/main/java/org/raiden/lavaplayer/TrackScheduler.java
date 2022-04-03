@@ -71,9 +71,7 @@ public class TrackScheduler extends AudioEventAdapter {
 
         User author = (User) audioTrack.getUserData();
 
-        String description = "[" + audioTrack.getInfo().title + "](" + audioTrack.getInfo().uri + ") [<@" + author.getId() + ">]";
-        MessageEmbed messageEmbed = EmbedCreator.nowPlayingEmbed(description);
-
+        MessageEmbed messageEmbed = EmbedCreator.nowPlayingEmbed(audioTrack, author.getIdLong());
         List<Button> buttonList = ButtonCreator.createNowPlayingButtons(this);
 
        textChannel.sendMessageEmbeds(messageEmbed).setActionRow(buttonList).queue(message -> this.lastMessage = message);
@@ -121,9 +119,7 @@ public class TrackScheduler extends AudioEventAdapter {
         if(retries == 0){
             retries = 3;
 
-            String description = "Track " + track.getInfo().title + " failed after 3 attempts";
-            MessageEmbed messageEmbed = EmbedCreator.actionFailedEmbed(description);
-
+            MessageEmbed messageEmbed = EmbedCreator.playbackFailedEmbed(track);
             textChannel.sendMessageEmbeds(messageEmbed).queue();
             this.repeating = false;
         }

@@ -10,6 +10,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import org.raiden.commands.utils.CommandContext;
 import org.raiden.commands.utils.EmbedCreator;
@@ -69,8 +70,8 @@ public class PlayerManager extends DefaultAudioPlayerManager{
                audioTrack.setUserData(author);
 
                if(musicManager.audioPlayer.getPlayingTrack() != null || ctx.getSlashEvent() != null){
-                   String description = "[" + audioTrack.getInfo().title + "](" + audioTrack.getInfo().uri + ") [<@" + author.getId() + ">]";
-                   ctx.sendEventReply(EmbedCreator.queuedTrackEmbed(description));
+                   MessageEmbed messageEmbed = EmbedCreator.queuedTrackEmbed(audioTrack, author.getIdLong());
+                   ctx.sendEventReply(messageEmbed);
                }
 
                musicManager.scheduler.queue(audioTrack);
@@ -87,10 +88,8 @@ public class PlayerManager extends DefaultAudioPlayerManager{
                    EmbedBuilder eb = new EmbedBuilder();
 
                    if(musicManager.audioPlayer.getPlayingTrack() != null  || ctx.getSlashEvent() != null){
-
-
-                       String description = "[" + audioTrack.getInfo().title + "](" + audioTrack.getInfo().uri + ") [<@" + author.getId() + ">]";
-                       ctx.sendEventReply(EmbedCreator.queuedTrackEmbed(description));
+                       MessageEmbed messageEmbed = EmbedCreator.queuedTrackEmbed(audioTrack, author.getIdLong());
+                       ctx.sendEventReply(messageEmbed);
                    }
 
                    audioTrack.setUserData(author);
@@ -99,9 +98,8 @@ public class PlayerManager extends DefaultAudioPlayerManager{
                    return;
                }
 
-               String description = "Queued **" + Integer.toString(tracks.size()) + "** tracks";
-
-               ctx.sendEventReply(EmbedCreator.queuedPlaylistEmbed(description));
+               MessageEmbed messageEmbed = EmbedCreator.queuedPlaylistEmbed(tracks.size());
+               ctx.sendEventReply(messageEmbed);
 
                for(final AudioTrack track : tracks){
                    track.setUserData(author);
