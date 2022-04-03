@@ -6,3 +6,5 @@ spotify.redirect=url
 
 youtube.papisid=
 youtube.psid=
+
+bot.prefix=r-
