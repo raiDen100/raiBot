@@ -32,7 +32,7 @@ public class BassboostCommand implements ICommand {
             ctx.sendEventReply(EmbedCreator.actionSuccessfulEmbed(description));
             return;
         }
-        float bassboostValue = Float.parseFloat(args) / 100;
+        float bassboostValue = Float.parseFloat(args);
 
         if(bassboostValue <= 0){
             guildMusicManager.resetBassboost();
@@ -42,7 +42,7 @@ public class BassboostCommand implements ICommand {
             return;
         }
 
-        guildMusicManager.bassBoost(bassboostValue);
+        guildMusicManager.bassBoost(bassboostValue / 100);
 
         String description = "Bassboost " + Math.round(bassboostValue) + " will be applied";
         MessageEmbed messageEmbed = EmbedCreator.actionSuccessfulEmbed(description);
