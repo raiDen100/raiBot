@@ -1,6 +1,7 @@
 package org.raiden;
 
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Emoji;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import org.raiden.utils.PropertiesReader;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class Bot {
         //String activityStatus = propertiesReader.getPropertyValue("bot.activity");
 
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
-        builder.setActivity(Activity.listening("music"));
+        builder.setActivity(Activity.listening(Emoji.fromUnicode("🎵").getName()));
         builder.addEventListeners(new Listener());
         builder.build();
     }
