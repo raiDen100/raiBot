@@ -11,6 +11,7 @@ import org.raiden.lavaplayer.PlayerManager;
 import org.raiden.utils.SpotifyService;
 import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.TrackSimplified;
 
 import java.awt.*;
 import java.net.URL;
@@ -83,6 +84,30 @@ public class PlayCommand implements ICommand {
                 };
                 return;
             }
+            else if (type.equals("album")) {
+                List<TrackSimplified> tracks = spotifyService.getAlbumTracks(id);
+
+                MessageEmbed messageEmbed = EmbedCreator.queuedPlaylistEmbed(tracks.size());
+                ctx.sendEventReply(messageEmbed);
+
+                final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+                musicManager.scheduler.setTextChannel(ctx.getChannel());
+
+                int i = 0;
+                for (TrackSimplified track : tracks) {
+                    String search = "ytsearch:" + track.getName() + " " + getTrackArtists(track);
+                    int finalI = i;
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            PlayerManager.getInstance().loadAndPlayFromSpotify(ctx, search, ctx.getAuthor(), finalI);
+                        }
+                    }.start();
+                    //PlayerManager.getInstance().loadAndPlayFromSpotify(ctx, search, ctx.getAuthor());
+                    i++;
+                }
+                return;
+            }
 
             System.out.println(id);
         }
@@ -100,6 +125,15 @@ public class PlayCommand implements ICommand {
     }
 
     public String getTrackArtists(Track track){
+        ArtistSimplified[] artists = track.getArtists();
+        String result = "";
+        for (int i = 0; i < artists.length && i < 3; i++) {
+            result += artists[i].getName() + " ";
+        }
+        return result.trim();
+    }
+
+    public String getTrackArtists(TrackSimplified track){
         ArtistSimplified[] artists = track.getArtists();
         String result = "";
         for (int i = 0; i < artists.length && i < 3; i++) {
