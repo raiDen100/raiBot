@@ -28,7 +28,6 @@ public class EmbedCreator {
         return new EmbedBuilder()
                 .setTitle("Now playing!")
                 .setDescription(description)
-                .setColor(Color.magenta)
                 .build();
     }
 
