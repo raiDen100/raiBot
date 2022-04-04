@@ -26,25 +26,25 @@ Simple Discord music bot with Spotify support. It is not ready for serving to th
 ![bot player](https://i.imgur.com/0X9i3Cs.png)
 
 ## What's needed
-1. Java 16 or newer(never tested on lower versions)
-2. Application at [Discord](https://discord.com/developers/applications)
+##### 1. Java 16 or newer(never tested on lower versions)
+##### 2. Application at [Discord](https://discord.com/developers/applications)
 - Bot Token
-3. Application at [Spotify](https://developer.spotify.com/)
+##### 3. Application at [Spotify](https://developer.spotify.com/)
 - Client ID
 - Client Secret
-4. Youtube cookies for videos with age restriction
+##### 4. Youtube cookies for videos with age restriction
 - [How to get these cookies](https://github.com/Walkyst/lavaplayer-fork/issues/18)
 
 
 ## How to run
 #### JAR
-1. `git clone https://github.com/raiDen100/raiBot.git`
-2. `mvn package`
-* It will make two jar files in `/target` directory
-3. Set configs in `src/main/resources/configs`
+##### 1. `git clone https://github.com/raiDen100/raiBot.git`
+##### 2. `mvn package`
+ * It will make two jar files in `/target` directory
+##### 3. Set configs in `src/main/resources/configs`
 * rename **config.properties.example** to **config.properties**
 * fill config with your credentials
-4. Run 
+##### 4. Run:
 * `java -jar file-with-dependencies.jar` for development config
 * `java -jar file-with-dependencies.jar production` for production config
 #### Docker
