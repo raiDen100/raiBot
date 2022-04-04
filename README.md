@@ -48,7 +48,7 @@ Simple Discord music bot with Spotify support. It is not ready for serving to th
 * `java -jar file-with-dependencies.jar` for development config
 * `java -jar file-with-dependencies.jar production` for production config
 #### Docker
-Set config files see [here](#JAR) in the JAR guide  
+Set config files see [here](#3-set-configs-in-srcmainresourcesconfigs) in the JAR guide  
 
 `mvn jib:build` will build and push Docker image to a specified registry. I do not recommend pushing an image to a public registry, because all configs will be inside.  
 
