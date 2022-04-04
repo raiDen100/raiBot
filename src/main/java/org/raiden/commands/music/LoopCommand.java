@@ -57,17 +57,16 @@ public class LoopCommand implements ICommand {
             messageEmbed = EmbedCreator.actionSuccessfulEmbed("Loop disabled!");
 
         ctx.sendEventReply(messageEmbed);
-
     }
 
     @Override
     public String getName() {
-        return "repeat";
+        return "loop";
     }
 
     @Override
     public List<String> getAliases() {
-        return List.of("loop");
+        return List.of("repeat");
     }
 
     @Override
