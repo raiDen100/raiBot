@@ -5,12 +5,10 @@ import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.TrackSimplified;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class SpotifyService {
 
@@ -78,4 +76,18 @@ public class SpotifyService {
         }
         return null;
     }//https://open.spotify.com/playlist/1HR1Cq6ZpWplFtRWTPVBRm?si=a033384b2fc64495
+
+    public List<TrackSimplified> getAlbumTracks(String albumId){
+        try {
+            Paging<TrackSimplified> albumTracks = spotifyApi.getAlbumsTracks(albumId).build().execute();
+
+            List<TrackSimplified> tracks = new ArrayList<>();
+            tracks.addAll(Arrays.asList(albumTracks.getItems()));
+            return tracks;
+        }
+        catch (Exception e){
+
+        }
+        return null;
+    }//https://open.spotify.com/album/7fJJK56U9fHixgO0HQkhtI?si=Gz11-NqrRtiGm79bfjmSkg
 }

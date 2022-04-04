@@ -7,6 +7,7 @@ import org.raiden.commands.HelpCommand;
 import org.raiden.commands.StatusCommand;
 import org.raiden.commands.music.*;
 import org.raiden.commands.music.filters.*;
+import org.raiden.utils.PropertiesReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,8 +66,11 @@ public class CommandManager {
     }
 
     public void handle(GuildMessageReceivedEvent event){
+        PropertiesReader propertiesReader = new PropertiesReader();
+        String prefix = propertiesReader.getPropertyValue("bot.prefix");
+
         String[] split = event.getMessage().getContentRaw()
-                .replaceFirst("(?i)" + Pattern.quote("r-"), "")
+                .replaceFirst("(?i)" + Pattern.quote(prefix), "")
                 .split("\\s+");
 
         String invoke = split[0].toLowerCase();
@@ -106,9 +110,10 @@ public class CommandManager {
 
 
     public void handle(ButtonClickEvent event){
+        PropertiesReader propertiesReader = new PropertiesReader();
+        String prefix = propertiesReader.getPropertyValue("bot.prefix");
         String[] split = event.getButton().getId()
-                .replaceFirst("(?i)" + Pattern.quote("r-"), "")
-                .split("\\s+");
+                .split(" ");
 
         String invoke = split[0].toLowerCase();
         ICommand cmd = this.getCommand(invoke);
@@ -117,7 +122,6 @@ public class CommandManager {
             List<String> args = Arrays.asList(split).subList(1, split.length);
 
             CommandContext ctx = new CommandContext(event, args, this.commands);
-
             cmd.handle(ctx);
         }
     }
