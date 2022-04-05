@@ -32,7 +32,8 @@ Simple Discord music bot with Spotify support. It is not ready for serving to th
 ##### 3. Application at [Spotify](https://developer.spotify.com/)
 - Client ID
 - Client Secret
-##### 4. Youtube cookies for videos with age restriction
+##### 4. Add redirect URL in Spotify app settings. It can be any URL, but has to be the same as the URL you provide in config
+##### 5. Youtube cookies for videos with age restriction
 - [How to get these cookies](https://github.com/Walkyst/lavaplayer-fork/issues/18)
 
 
