@@ -2,8 +2,12 @@
 # raiBot
 
 
-Simple Discord music bot with Spotify support. It is not ready for serving to thousands of servers. Only use this bot for your personal needs.
-
+Simple Discord music bot with Spotify support. It is not ready for serving to thousands of servers. Only use this bot for your personal needs.  
+Written in Java using 
+[JDA (Java Discord API)](https://github.com/DV8FromTheWorld/JDA),
+[Lavaplayer](https://github.com/Walkyst/lavaplayer-fork),
+[Spotify Web API Java](https://github.com/spotify-web-api-java/spotify-web-api-java)
+and [lavadsp](https://github.com/natanbc/lavadsp) for audio filters
 ## Features
 
 #### Supported services
@@ -33,7 +37,7 @@ Simple Discord music bot with Spotify support. It is not ready for serving to th
 - Client ID
 - Client Secret
 ##### 4. Add redirect URL in Spotify app settings. It can be any URL, but has to be the same as the URL you provide in config
-##### 5. Youtube cookies for videos with age restriction
+##### 5. Youtube cookies for videos with age restriction (optional)
 - [How to get these cookies](https://github.com/Walkyst/lavaplayer-fork/issues/18)
 
 
