@@ -40,11 +40,11 @@ Simple Discord music bot with Spotify support. It is not ready for serving to th
 ## How to run
 #### JAR
 ##### 1. `git clone https://github.com/raiDen100/raiBot.git`
-##### 2. `mvn package`
- * It will make two jar files in `/target` directory
-##### 3. Set configs in `src/main/resources/configs`
+##### 2. Set configs in `src/main/resources/configs`
 * rename **config.properties.example** to **config.properties**
 * fill config with your [credentials](#whats-needed)
+##### 3. `mvn package`
+ * It will make two jar files in `/target` directory
 ##### 4. Run:
 * `java -jar file-with-dependencies.jar` for development config
 * `java -jar file-with-dependencies.jar production` for production config
