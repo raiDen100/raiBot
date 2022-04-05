@@ -44,7 +44,7 @@ Simple Discord music bot with Spotify support. It is not ready for serving to th
  * It will make two jar files in `/target` directory
 ##### 3. Set configs in `src/main/resources/configs`
 * rename **config.properties.example** to **config.properties**
-* fill config with your credentials
+* fill config with your [credentials](#whats-needed)
 ##### 4. Run:
 * `java -jar file-with-dependencies.jar` for development config
 * `java -jar file-with-dependencies.jar production` for production config
