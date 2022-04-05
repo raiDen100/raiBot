@@ -45,8 +45,13 @@ public class PlayerManager extends DefaultAudioPlayerManager{
 
         PropertiesReader propertiesReader = new PropertiesReader();
 
-        YoutubeHttpContextFilter.setPAPISID(propertiesReader.getPropertyValue("youtube.papisid"));
-        YoutubeHttpContextFilter.setPSID(propertiesReader.getPropertyValue("youtube.psid"));
+        String papisid = propertiesReader.getPropertyValue("youtube.papisid");
+        String psid = propertiesReader.getPropertyValue("youtube.psid");
+
+        if (papisid != null && psid != null){
+            YoutubeHttpContextFilter.setPAPISID(papisid);
+            YoutubeHttpContextFilter.setPSID(psid);
+        }
         //audioPlayerManager.source(YoutubeAudioSourceManager.class).getMainHttpConfiguration().setHttpContextFilter(httpContextFilter);
     }
 
